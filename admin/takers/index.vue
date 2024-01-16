@@ -65,6 +65,7 @@
         });
 
         if (response.ok) {
+          alert('Deleted Succesfully');
           window.location.reload();
         } else {
           console.error('Failed to delete taker:', response.statusText);
@@ -79,7 +80,6 @@
   </script>
   
 <style>
-  /* Add your table styles here if needed */
   table {
     width: 100%;
     border-collapse: collapse;

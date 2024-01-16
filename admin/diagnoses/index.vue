@@ -5,7 +5,6 @@
     <table>
       <thead>
         <tr>
-          <th>Diagnosis</th>
           <th>Taker</th>
           <th>Score</th>
           <th>Depression</th>
@@ -13,11 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <!-- <p>{{ data }}</p> -->
         <tr v-for="t in data.Diagnosis" :key="t.id">
-          <td>
-            <nuxt-link :to="'/diagnoses/' + t.id">{{ `${t.id}` }}</nuxt-link>
-          </td>
           <td>{{ t.taker }}</td>
           <td>{{ t.total_score }}</td>
           <td>{{ t.depression_type.type }}</td>
@@ -48,8 +43,8 @@ export default {
   },
   
   methods: {
-    view(adminId) {
-      this.$router.push(`/admin/diagnoses/${adminId}`);
+    view(id) {
+      this.$router.push(`/admin/diagnoses/${id}`);
     },
   },
 };

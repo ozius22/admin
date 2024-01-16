@@ -74,6 +74,7 @@ export default {
         });
 
         if (response.ok) {
+          alert('Deleted Succesfully');
           window.location.reload();
         } else {
           console.error('Failed to delete administrator:', response.statusText);

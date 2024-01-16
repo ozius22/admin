@@ -15,9 +15,7 @@
       </thead>
       <tbody>
         <tr v-for="t in data.depressionTypes" :key="t.id">
-          <td>
-            <nuxt-link :to="'/types/' + t.id">{{ `${t.type}` }}</nuxt-link>
-          </td>
+          <td>{{ t.type }}</td>
           <td>{{ t.message }}</td>
           <td>{{ t.scoreRangeStart }}</td>
           <td>{{ t.scoreRangeEnd }}</td>
@@ -45,7 +43,6 @@ export default {
       return { data };
     } catch (error) {
       console.error('Error fetching:', error);
-      // You might want to handle errors more gracefully, for example by showing an error message to the user
     }
   },
 
@@ -69,6 +66,7 @@ export default {
         });
 
         if (response.ok) {
+          alert('Deleted Succesfully');
           window.location.reload();
         } else {
           console.error('Failed to delete question:', response.statusText);

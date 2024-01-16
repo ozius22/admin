@@ -1,7 +1,6 @@
 <template>
   <div>
     <p>Questions List</p>
-    <button class="action-btn create" @click="create()">Create</button>
     <table>
       <thead>
         <tr>
@@ -12,16 +11,13 @@
       </thead>
       <tbody>
         <tr v-for="t in data.questions" :key="t.id">
+          <td>{{ `${t.question}` }}</td>
           <td>
-            <nuxt-link :to="'/questions/' + t.id">{{ `${t.question}` }}</nuxt-link>
-          </td>
-          <td>
-              <nuxt-link :to="'/admins/' + t.id">{{ `${t.adminID}` }}</nuxt-link>
+            <nuxt-link class="admin-link" :to="'/admin/admins/' + t.adminID">{{ `${t.adminID}` }}</nuxt-link>
           </td>
           <td>
             <button class="action-btn view" @click="view(t.id)">View</button>
             <button class="action-btn edit" @click="edit(t.id)">Edit</button>
-            <button class="action-btn delete" @click="deleteQuestion(t.id)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -42,7 +38,6 @@ export default {
       return { data };
     } catch (error) {
       console.error('Error fetching:', error);
-      // You might want to handle errors more gracefully, for example by showing an error message to the user
     }
   },
 
@@ -51,71 +46,57 @@ export default {
       this.$router.push(`/admin/questions/${id}`);
     },
 
-    edit(adminId) {
-      this.$router.push(`/admin/questions/edit/${adminId}`);
-    },
-
-    create() {
-      this.$router.push(`/admin/questions/create`);
-    },
-
-    async deleteQuestion(id) {
-      try {
-        const response = await fetch(`http://127.0.0.1:8000/api/questions/${id}/1/delete`, {
-          method: 'DELETE',
-        });
-
-        if (response.ok) {
-          window.location.reload();
-        } else {
-          console.error('Failed to delete question:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Error deleting question:', error);
-      }
+    edit(id) {
+      this.$router.push(`/admin/questions/edit/${id}`);
     },
   },
 };
 </script>
 
 <style>
-/* Add your table styles here if needed */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
+.admin-link {
+    color: blue; 
+    cursor: pointer; 
+    text-decoration: underline; 
+    text-align: center;
+  }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
 
-th {
-  background-color: #f2f2f2;
-}
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
 
-.action-btn {
-  margin-right: 5px;
-  padding: 3px 8px;
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
-}
+  th {
+    background-color: #f2f2f2;
+  }
 
-.view {
-  background-color: green;
-  color: white;
-}
+  .action-btn {
+    margin-right: 5px;
+    padding: 3px 8px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
 
-.edit {
-  background-color: yellow;
-  color: #333;
-}
+  .view {
+    background-color: green;
+    color: white;
+  }
 
-.delete {
-  background-color: red;
-  color: white;
-}
+  .edit {
+    background-color: yellow;
+    color: #333;
+  }
+
+  .delete {
+    background-color: red;
+    color: white;
+  }
 </style>
